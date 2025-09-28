@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D.D COMMUNITY</title>
+<!-- Google Font estilo gamer -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        margin: 0;
+        font-family: 'Orbitron', sans-serif;
+        background: linear-gradient(135deg, #0b0b0b, #8b0000);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+    }
+    header { margin-top: 50px; text-align: center; }
+    header h1 { font-size: 3em; color: #ff4444; text-shadow: 2px 2px 5px black; margin-bottom: 10px; }
+    header h2 { font-size: 1.2em; color: #ffffff; text-shadow: 1px 1px 3px black; }
+    .container {
+        margin-top: 50px;
+        background-color: rgba(20,20,20,0.85);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px #ff0000;
+        text-align: center;
+        width: 350px;
+    }
+    input {
+        width: 80%;
+        padding: 10px;
+        margin: 15px 0;
+        border-radius: 8px;
+        border: 2px solid #ff4444;
+        background-color: #1a1a1a;
+        color: white;
+        font-size: 1em;
+        text-align: center;
+    }
+    button {
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 8px;
+        border: none;
+        background-color: #ff0000;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1em;
+        transition: 0.3s;
+    }
+    button:hover { background-color: #cc0000; box-shadow: 0 0 10px #ff4444; }
+    #status { margin-top: 20px; font-size: 1em; color: #ffdddd; }
+    footer { margin-top: auto; padding: 20px; font-size: 0.8em; color: #aaa; text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>D.D COMMUNITY</h1>
+    <h2>Your Game Hub</h2>
+</header>
+
+<div class="container">
+    <input type="text" id="appid" placeholder="Enter AppID">
+    <br>
+    <button onclick="checkManifest()">CHECK</button>
+    <button onclick="downloadManifest()">DOWNLOAD</button>
+    <p id="status"></p>
+</div>
+
+<footer>
+    &copy; 2025 D.D COMMUNITY
+</footer>
+
+<script>
+function checkManifest() {
+    const id = document.getElementById('appid').value;
+    if(!id) return document.getElementById('status').innerText = "Introduce un AppID";
+    document.getElementById('status').innerText = "Checking manifest...";
+    fetch(`https://raw.githubusercontent.com/0B14CK-KN1GH7/steam-manifests/main/${id}.json`)
+        .then(res => document.getElementById('status').innerText = res.ok ? "Manifest found!" : "Manifest not found")
+        .catch(() => document.getElementById('status').innerText = "Error checking manifest");
+}
+function downloadManifest() {
+    const id = document.getElementById('appid').value;
+    if(!id) return document.getElementById('status').innerText = "Introduce un AppID";
+    window.open(`https://raw.githubusercontent.com/0B14CK-KN1GH7/steam-manifests/main/${id}.json`, "_blank");
+}
+</script>
+
+</body>
+</html>
